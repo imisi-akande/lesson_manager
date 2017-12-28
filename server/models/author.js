@@ -1,6 +1,6 @@
 'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var Author = sequelize.define('Author', {
+module.exports = (sequelize, DataTypes) => {
+  const Author = sequelize.define('Author', {
     name: DataTypes.STRING,
     subject_teacher: DataTypes.STRING,
     bio: DataTypes.TEXT,
@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
     }
   });
-  Author.associate =  function(models) {
+  Author.associate = (models) => {
     // associations can be defined here
     Author.hasMany(models.Note, {
       onDelete: 'cascade'

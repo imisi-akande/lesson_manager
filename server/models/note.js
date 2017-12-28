@@ -1,6 +1,6 @@
 'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var Note = sequelize.define('Note', {
+module.exports = (sequelize, DataTypes) => {
+  const Note = sequelize.define('Note', {
     name: DataTypes.STRING,
     subject: DataTypes.STRING,
     level: DataTypes.STRING,
@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
     }
   });
-  Note.associate = function(models) {
+  Note.associate = (models) => {
     Note.belongsTo(models.Author, {
       onDelete: 'cascade'
     });

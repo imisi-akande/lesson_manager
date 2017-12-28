@@ -1,13 +1,13 @@
-Note = require('../models/').Note;
+import { Note } from '../models/'
 
-module.exports= {
+export default {
   //Get a list of all notes using model.findAll()
   index(req, res) {
     Note.findAll()
-      .then(function (notes) {
+      .then((notes) => {
         res.status(200).json(notes);
       })
-      .catch(function (error) {
+      .catch((error) => {
         res.status(500).json(error);
       });
   },
@@ -15,10 +15,10 @@ module.exports= {
   //Get a lesson note by it's unique ID using model.findById()
   show(req, res) {
     Note.findById(req.params.id)
-    .then(function (note) {
+    .then((note) => {
       res.status(200).json(note);
     })
-    .catch(function (error){
+    .catch((error) => {
       res.status(500).json(error);
     });
   },
@@ -26,10 +26,10 @@ module.exports= {
   //Create a new lesson Note using model.create()
   create(req, res) {
     Note.create(req.body)
-      .then(function (newNote) {
+      .then((newNote) => {
         res.status(200).json(newNote);
       })
-      .catch(function (error){
+      .catch((error) => {
         res.status(500).json(error);
       });
   },
@@ -37,14 +37,15 @@ module.exports= {
   //Edit an existing note details using model.update()
   update(req, res) {
     Note.update(req.body, {
-    where: {
-        id: req.params.id
-    }
-    })
-    .then(function (updatedNotes) {
+        where: {
+            id: req.params.id
+        },
+        returning:true
+        })
+    .then((updatedNotes) => {
     res.status(200).json(updatedNotes);
     })
-    .catch(function (error){
+    .catch((error) => {
     res.status(500).json(error);
     });
   },
@@ -56,10 +57,13 @@ module.exports= {
         id: req.params.id
       }
     })
-    .then(function (deletedNotes) {
-      res.status(200).json(deletedNotes);
+    .then((deletedNotes) => {
+      res.status(200).json({
+        deletedNotes,
+        message: 'This document has been deleted successfully'
+      });
     })
-    .catch(function (error){
+    .catch((error) => {
       res.status(500).json(error);
     });
   }
